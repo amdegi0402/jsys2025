@@ -15,11 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
+
 @WebServlet(urlPatterns = { "/jsysF" })
 public class FrontController extends HttpServlet {
 	/**

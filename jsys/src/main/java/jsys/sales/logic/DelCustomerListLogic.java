@@ -16,11 +16,6 @@ import jsys.sales.dao.ConnectionManager;
 import jsys.sales.dao.CustomerDAO;
 import jsys.sales.entity.Customer;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
 public class DelCustomerListLogic{
 
 	public ArrayList<Customer> findDelAllCustomer()  throws BusinessException,SystemException{

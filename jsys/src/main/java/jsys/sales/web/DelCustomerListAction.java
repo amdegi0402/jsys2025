@@ -14,11 +14,7 @@ import jsys.common.SystemException;
 import jsys.sales.entity.Customer;
 import jsys.sales.logic.DelCustomerListLogic;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
+
 public class DelCustomerListAction implements ActionIF {
 
 	/**

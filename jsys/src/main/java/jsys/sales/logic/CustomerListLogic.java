@@ -16,11 +16,6 @@ import jsys.sales.dao.ConnectionManager;
 import jsys.sales.dao.CustomerDAO;
 import jsys.sales.entity.Customer;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
 public class CustomerListLogic{
 
 	public ArrayList<Customer> findAllCustomer()  throws BusinessException,SystemException{

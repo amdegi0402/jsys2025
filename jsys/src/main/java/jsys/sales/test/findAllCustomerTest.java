@@ -14,11 +14,6 @@ import jsys.sales.dao.ConnectionManager;
 import jsys.sales.dao.CustomerDAO;
 import jsys.sales.entity.Customer;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
 public class findAllCustomerTest {
 	public static void main(String[] args) {
 		Connection con = null;

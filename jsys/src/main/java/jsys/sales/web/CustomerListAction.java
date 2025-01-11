@@ -14,11 +14,7 @@ import jsys.common.SystemException;
 import jsys.sales.entity.Customer;
 import jsys.sales.logic.CustomerListLogic;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
+
 public class CustomerListAction implements ActionIF {
 
 	/**

@@ -8,11 +8,7 @@ package jsys.common;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
+
 public class SystemException extends Exception{
 
 	ArrayList<String> messageList = new ArrayList<>();

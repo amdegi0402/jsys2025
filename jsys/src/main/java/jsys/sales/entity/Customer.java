@@ -8,11 +8,6 @@ package jsys.sales.entity;
 
 import java.io.Serializable;
 
-/**
- *
- * @author FLM
- * @version 1.0.0
- */
 public class Customer implements Serializable{
 	private String custCode;
 	private String custName;

@@ -79,12 +79,10 @@ public class CustomerDAO {
 				customerList.add(customer);
 			}
 		} finally {
-			if (res != null) {
+			if (res != null)
 				res.close();
-			}
-			if (stmt != null) {
+			if (stmt != null)
 				stmt.close();
-			}
 		}
 		return customerList;
 	}
@@ -113,17 +111,15 @@ public class CustomerDAO {
 				customerList.add(customer);
 			}
 		} finally {
-			if (res != null) {
+			if (res != null)
 				res.close();
-			}
-			if (stmt != null) {
+			if (stmt != null)
 				stmt.close();
-			}
 		}
 		return customerList;
 	}
 
-	// 更新
+	// 復元
 	public boolean restoreCustomer(Customer customer) throws SQLException {
 		String sql
 				= "UPDATE customer SET delete_flag=false WHERE customer_code=?";
@@ -138,7 +134,7 @@ public class CustomerDAO {
 				result = true;
 		} finally {
 			if (stmt != null)
-				result = true;
+				stmt.close();
 		}
 		return result;
 	}
