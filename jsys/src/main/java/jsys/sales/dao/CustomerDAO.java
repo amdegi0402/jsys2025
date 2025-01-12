@@ -115,14 +115,14 @@ public class CustomerDAO {
 	}
 
 	// 復元
-	public boolean restoreCustomer(Customer customer) throws SQLException {
+	public boolean restoreCustomer(String custCode) throws SQLException {
 		String sql
 				= "UPDATE customer SET delete_flag=false WHERE customer_code=?";
 		boolean result = false;
 		PreparedStatement stmt = null;
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, customer.getCustCode());
+			stmt.setString(1, custCode);
 
 			int count = stmt.executeUpdate();
 			if (count == 1)

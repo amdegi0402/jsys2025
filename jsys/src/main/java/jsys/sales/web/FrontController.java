@@ -41,9 +41,15 @@ public class FrontController extends HttpServlet {
 			case "V205_01":// 一覧検索
 				action = new CustomerListAction();
 				page = action.execute(req);
+				break;
 			case "V206_01":// 削除済み一覧検索
 				action = new DelCustomerListAction();
 				page = action.execute(req);
+				break;
+			case "V207_01":// 得意先復元
+				action = new RestoreCustomerAction();
+				page = action.execute(req);
+				break;
 		}
 
 		// 結果画面に転送
