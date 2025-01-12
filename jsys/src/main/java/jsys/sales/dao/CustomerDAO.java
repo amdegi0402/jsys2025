@@ -19,7 +19,7 @@ public class CustomerDAO {
 	// 1件検索
 	public Customer findCustomer(String custCode) throws SQLException {
 		String sql
-				= "SELECT customer_code, customer_name, customer_telno, customer_postalcode, customer_address, discount_rate FROM customer WHERE customer_code=? AND delete_flag=false";
+				= "SELECT customer_code, customer_name, customer_telno, customer_postalcode, customer_address, discount_rate FROM customer WHERE (customer_code LIKE ? OR customer_name LIKE ? OR customer_telno LIKE ?) AND delete_flag=false";
 		Customer customer = null;
 		PreparedStatement stmt = null;
 		ResultSet res = null;
@@ -28,7 +28,9 @@ public class CustomerDAO {
 			// DBに渡すsqlを格納
 			stmt = con.prepareStatement(sql);
 			// 受け取ったcustCodeをセット
-			stmt.setString(1, custCode);
+			stmt.setString(1, "%" + custCode + "%");
+			stmt.setString(2, "%" + custCode + "%");
+			stmt.setString(3, "%" + custCode + "%");
 			// DB空の結果を受け取る
 			res = stmt.executeQuery();
 			// 結果をエンティティに格納

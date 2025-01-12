@@ -30,13 +30,20 @@ public class FrontController extends HttpServlet {
 		String buttonId = req.getParameter("buttonId");
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V206_01";
+			buttonId = "V201_01";
 		}
 
 		// 遷移先ページ
 		switch (buttonId) {
 			case "V101_01":// 初期値
 				page = "V205_01CustomerListView.jsp";
+				break;
+			case "V201_01":// 得意先検索初期画面
+				page = "V201_01CustomerFindView.jsp";
+				break;
+			case "V201_02":// 得意先検索
+				action = new CustomerFindAction();
+				page = action.execute(req);
 				break;
 			case "V205_01":// 一覧検索
 				action = new CustomerListAction();
