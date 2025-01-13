@@ -11,7 +11,8 @@
 <body>
 	<!-- 見出し -->
 	<div style="text-align: center">
-		<h2>得意先検索結果</h2>
+		<h2>得意先削除結果画面</h2>
+		
 	</div>
 	<!-- フォーム -->
 	<form action="./jsysF" method="post">
@@ -20,45 +21,41 @@
 				style="width: 200px">メニュー画面へ戻る</button>
 		</div>
 	</form>
+	
 	<!-- フォーム -->
 	<form action="./jsysF" method="post">
-	<c:if test="${not empty customerList}">
-		<table border="1">
-			<tr>
-				<td>得意先コード</td>
-				<td><c:out
-						value="${requestScope.customer.custCode}" /></td>
-			</tr>
-			<tr>
-				<td>得意先名</td>
-				<td><c:out
-						value="${requestScope.customer.custName}" /></td>
-			</tr>
-			<tr>
-				<td>電話番号</td>
-				<td><c:out
-						value="${requestScope.customer.telNo}" /></td>
-			</tr>
-			<tr>
-				<td>郵便番号</td>
-				<td><c:out
-						value="${requestScope.customer.postalCode}" /></td>
-			</tr>
-			<tr>
-				<td>住所</td>
-				<td><c:out
-						value="${requestScope.customer.address}" /></td>
-			</tr>
-			<tr>
-				<td>割引率</td>
-				<td><c:out
-						value="${requestScope.customer.discountRate}" /> %</td>
-			</tr>
-		</table>
+		<c:if test="${not empty customer}">
+		<p>得意先を削除しました。</p>
+			<table border="1">
+				<tr>
+					<td>得意先コード</td>
+					<td><c:out value="${requestScope.customer.custCode}" /></td>
+				</tr>
+				<tr>
+					<td>得意先名</td>
+					<td><c:out value="${requestScope.customer.custName}" /></td>
+				</tr>
+				<tr>
+					<td>電話番号</td>
+					<td><c:out value="${requestScope.customer.telNo}" /></td>
+				</tr>
+				<tr>
+					<td>郵便番号</td>
+					<td><c:out value="${requestScope.customer.postalCode}" /></td>
+				</tr>
+				<tr>
+					<td>住所</td>
+					<td><c:out value="${requestScope.customer.address}" /></td>
+				</tr>
+				<tr>
+					<td>割引率</td>
+					<td><c:out value="${requestScope.customer.discountRate}" /> %</td>
+				</tr>
+			</table>
 		</c:if>
 		<br>
 		<div>
-			<button type="submit" name="buttonId" value="V201_01">前画面へ戻る</button>
+			<button type="submit" name="buttonId" value="V203_01">前画面へ戻る</button>
 		</div>
 	</form>
 	<!-- エラーメッセージ -->

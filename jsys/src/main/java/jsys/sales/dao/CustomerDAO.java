@@ -135,4 +135,27 @@ public class CustomerDAO {
 		}
 		return result;
 	}
+
+	// 削除
+	public boolean deleteCustomer(Customer customer) throws SQLException {
+		String sql
+				= "UPDATE customer SET delete_flag=true WHERE customer_code=? AND delete_flag=false";
+		PreparedStatement stmt = null;
+		boolean result = false;
+		try {
+			// DBへ渡すSQLを格納
+			stmt = con.prepareStatement(sql);
+			// 引数で受け取ったオブジェクトからコードをSQL文に挿入
+			stmt.setString(1, customer.getCustCode());
+			// DBから結果を受け取る
+			int count = stmt.executeUpdate();
+			// 結果が1であれば戻り値をtrue
+			if (count == 1)
+				result = true;
+		} finally {
+			if (stmt != null)
+				stmt.close();
+		}
+		return result;
+	}
 }

@@ -10,6 +10,8 @@ public class Customer implements Serializable{
 	private String postalCode;
 	private String address;
 	private int discountRate;
+
+	public Customer() {}
 	/**
 	 * @param custCode
 	 * @param custName
