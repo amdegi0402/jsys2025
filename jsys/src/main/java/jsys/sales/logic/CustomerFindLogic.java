@@ -12,7 +12,7 @@ import jsys.sales.entity.Customer;
 
 public class CustomerFindLogic {
 
-	public Customer findCustomer(String custCode)
+	public Customer findCustomer(String custValue, String category)
 			throws BusinessException, SystemException {
 		Connection con = null;
 		Customer customer = null;
@@ -23,10 +23,16 @@ public class CustomerFindLogic {
 			// dao生成
 			CustomerDAO dao = new CustomerDAO(con);
 
-			// custCodeの文字列最後から２文字を抜き出す（あいまい検索を行うための処理）
-			 String lastCode = custCode.substring(custCode.length() - 4);
-			// findCustomerメソッドを呼び出し結果を受け取る
-			customer = dao.findCustomer(custCode);
+			if(category.equals("custCode")) {
+				// custCodeの文字列最後から２文字を抜き出す（あいまい検索を行うための処理）
+				 String lastCode = custValue.substring(custValue.length() - 2);
+				// findCustomerメソッドを呼び出し結果を受け取る
+				customer = dao.findCustomer(lastCode);
+			}else {
+				// findCustomerメソッドを呼び出し結果を受け取る
+				customer = dao.findCustomer(custValue);
+			}
+
 			// 結果がnullであれば業務エラーを発生させる
 			if (customer == null) {
 				throw new BusinessException("得意先が見つかりません");

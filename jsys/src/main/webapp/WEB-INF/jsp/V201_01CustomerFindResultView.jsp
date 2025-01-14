@@ -22,7 +22,7 @@
 	</form>
 	<!-- フォーム -->
 	<form action="./jsysF" method="post">
-	<c:if test="${not empty customerList}">
+	<c:if test="${not empty customer}">
 		<table border="1">
 			<tr>
 				<td>得意先コード</td>

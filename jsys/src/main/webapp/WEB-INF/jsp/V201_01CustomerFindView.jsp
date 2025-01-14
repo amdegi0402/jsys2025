@@ -21,10 +21,18 @@
 		</div>
 	</form>
 	<form action="./jsysF" method="post">
+		<label>
+			<input type="radio" name="category" value="custCode" checked>
+			得意先コード
+		</label>
+		<label>
+			<input type="radio" name="category" value="custName">
+			得意先名
+		</label>
+		<br>
 		<table>
 			<tr>
-				<td>得意先コード</td>
-				<td><input type="text" name="custCode" value="${param.custCode}" maxlength=6 size="10"></td>
+				<td><input type="text" name="custValue" value="${param.custValue}" maxlength=6 size="10"></td>
 			</tr>
 			<tr>
 				<td><button type="submit" name="buttonId" value="V201_02">検索</button></td>

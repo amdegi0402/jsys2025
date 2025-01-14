@@ -18,14 +18,15 @@ public class CustomerFindAction implements ActionIF {
 		String page = "V201_01CustomerFindResultView.jsp";
 		Customer customer = null;
 		try {
-			String custCode = request.getParameter("custCode");
+			String custValue = request.getParameter("custValue"); //得意先コードもしくは得意先名
+			String category = request.getParameter("category");//custCode or custName (radio)
 			//String custCode = "001";
-			if(custCode == null || custCode.equals("")) {
-				throw new BusinessException("得意先コードが入力されていません");
+			if(custValue== null || custValue.equals("")) {
+				throw new BusinessException("得意先情報が入力されていません");
 			}
 			// logic呼び出し
 			CustomerFindLogic logic = new CustomerFindLogic();
-			customer = logic.findCustomer(custCode);
+			customer = logic.findCustomer(custValue, category);
 			request.setAttribute("customer", customer);
 
 		} catch (BusinessException e) {
