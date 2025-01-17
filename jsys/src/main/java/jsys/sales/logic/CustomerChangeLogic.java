@@ -10,7 +10,7 @@ import jsys.sales.dao.ConnectionManager;
 import jsys.sales.dao.CustomerDAO;
 import jsys.sales.entity.Customer;
 
-public class CustomerDeleteLogic {
+public class CustomerChangeLogic {
 
 	public Customer findCustomer(String custCode)
 			throws BusinessException, SystemException {
@@ -36,7 +36,7 @@ public class CustomerDeleteLogic {
 
 	}
 
-	public Customer deleteCustomer(Customer customer)
+	public Customer changeCustomer(Customer customer)
 			throws BusinessException, SystemException {
 		Connection con = null;
 		boolean result = false;
@@ -48,13 +48,12 @@ public class CustomerDeleteLogic {
 			con.setAutoCommit(false);
 			// dao生成
 			CustomerDAO dao = new CustomerDAO(con);
-			// 得意先情報を検索
-			customer = dao.findCustomer(customer.getCustCode());
-			// deleteCustomerメソッドを呼び出しDBの得意先データを削除
-			result = dao.deleteCustomer(customer);
+			// changeCustomerメソッドを呼び出しDBの得意先データを更新
+			result = dao.updateCustomer(customer);
+
 			// 結果がfalseであれば業務エラーを発生させる
 			if (result == false) {
-				throw new BusinessException("得意先の削除に失敗しました。");
+				throw new BusinessException("得意先情報の更新に失敗しました。");
 			}
 			con.commit();
 			con.setAutoCommit(true);

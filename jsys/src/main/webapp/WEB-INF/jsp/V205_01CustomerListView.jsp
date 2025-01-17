@@ -33,12 +33,22 @@
 			</tr>
 			<c:forEach var="customer" items="${customerList}" varStatus="status">
 				<tr>
-					<td nowrap><c:out value="${customer.custCode}" /></td>
-					<td nowrap><c:out value="${customer.custName}" /></td>
-					<td nowrap><c:out value="${customer.telNo}" /></td>
-					<td nowrap><c:out value="${customer.postalCode}" /></td>
-					<td nowrap><c:out value="${customer.address}" /></td>
-					<td nowrap><c:out value="${customer.discountRate}" /> %</td>
+					<input type="hidden" name="custCode" value="${customer.custCode}">
+					<td><c:out value="${customer.custCode}" /></td>
+					<td><c:out value="${customer.custName}" /></td>
+					<td><c:out value="${customer.telNo}" /></td>
+					<td><c:out value="${customer.postalCode}" /></td>
+					<td><c:out value="${customer.address}" /></td>
+					<td><c:out value="${customer.discountRate}" /> %</td>
+					<td>
+						<button type="submit" class="button edit" name="buttonId"
+							value="V204_02">✎</button>
+					</td>
+					<td>
+
+						<button type="submit" class="button edit" name="buttonId"
+							value="V203_02">×</button>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

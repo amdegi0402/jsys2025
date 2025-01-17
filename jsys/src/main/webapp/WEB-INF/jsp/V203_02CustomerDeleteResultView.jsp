@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>得意先一覧画面</title>
+<title>得意先削除結果画面</title>
 </head>
 <body>
 	<!-- 見出し -->
 	<div style="text-align: center">
-		<h2>得意先削除結果画面</h2>
+		<h2>得意先削除画面</h2>
 		
 	</div>
 	<!-- フォーム -->

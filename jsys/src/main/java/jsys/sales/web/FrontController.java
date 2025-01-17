@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
 		String buttonId = req.getParameter("buttonId");
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V201_01";
+			buttonId = "V205_01";
 		}
 
 		// 遷移先ページ
@@ -64,8 +64,19 @@ public class FrontController extends HttpServlet {
 				action = new CustomerDeleteFindAction();
 				page = action.execute(req);
 				break;
-			case "V203_03":// 得意先削除（削除）
+			case "V203_03":// 得意先削除（結果）
 				action = new CustomerDeleteExecuteAction();
+				page = action.execute(req);
+				break;
+			case "V204_01":// 得意先更新（検索）
+				page = "V204_01CustomerChangeView.jsp";
+				break;
+			case "V204_02":// 得意先更新（更新）
+				action = new CustomerChangeFindAction();
+				page = action.execute(req);
+				break;
+			case "V204_03":// 得意先更新（結果）
+				action = new CustomerChangeExecuteAction();
 				page = action.execute(req);
 				break;
 		}

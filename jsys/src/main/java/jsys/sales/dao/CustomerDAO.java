@@ -157,4 +157,32 @@ public class CustomerDAO {
 		}
 		return result;
 	}
+
+	// 更新
+	public boolean updateCustomer(Customer customer) throws SQLException {
+		String sql
+				= "UPDATE customer SET customer_name=?, customer_telno=?, customer_postalcode=?, customer_address=?, discount_rate=? WHERE customer_code=? AND delete_flag=false";
+		PreparedStatement stmt = null;
+		boolean result = false;
+		try {
+			// DBへ渡すSQLを格納
+			stmt = con.prepareStatement(sql);
+			// 引数で受け取ったオブジェクトからコードをSQL文に挿入
+			stmt.setString(1, customer.getCustName());
+			stmt.setString(2, customer.getTelNo());
+			stmt.setString(3, customer.getPostalCode());
+			stmt.setString(4, customer.getAddress());
+			stmt.setInt(5, customer.getDiscountRate());
+			stmt.setString(6, customer.getCustCode());
+			// DBから結果を受け取る
+			int count = stmt.executeUpdate();
+			// 結果が1であれば戻り値をtrue
+			if (count == 1)
+				result = true;
+		} finally {
+			if (stmt != null)
+				stmt.close();
+		}
+		return result;
+	}
 }
