@@ -69,7 +69,7 @@
 
 			<br>
 			<div>
-				<button type="submit" name="buttonId" value="V201_01">前画面へ戻る</button>
+				<button type="button" onclick="history.back()">前画面へ戻る</button>
 			</div>
 
 			<div align="right">

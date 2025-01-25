@@ -20,13 +20,22 @@ public class CustomerFindAction implements ActionIF {
 		try {
 			String custValue = request.getParameter("custValue"); //得意先コードもしくは得意先名
 			String category = request.getParameter("category");//custCode or custName (radio)
-			//String custCode = "001";
+
 			if(custValue== null || custValue.equals("")) {
 				throw new BusinessException("得意先情報が入力されていません");
 			}
 			// logic呼び出し
 			CustomerFindLogic logic = new CustomerFindLogic();
-			customer = logic.findCustomer(custValue, category);
+			if(category.equals("custCode")) {
+				// custCodeの文字列最後から２文字を抜き出す（あいまい検索を行うための処理）
+				 String suffixCode = custValue.substring(custValue.length() - 2);
+				// findCustomerメソッドを呼び出しIDあいまい検索の結果を受け取る
+				customer = logic.findCustomer(suffixCode);
+			}else {
+				// findCustomerメソッドを呼び出し名前検索の結果を受け取る
+				customer = logic.findCustomer(custValue);
+			}
+
 			request.setAttribute("customer", customer);
 
 		} catch (BusinessException e) {

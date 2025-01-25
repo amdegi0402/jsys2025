@@ -59,7 +59,8 @@ public class CustomerChangeExecuteAction implements ActionIF {
 
 		} catch (BusinessException e) {
 			// 業務エラー（エラーメッセージをリクエストスコープに格納）
-			request.setAttribute("errorMessageList", e.getMessage());
+			request.setAttribute("errorMessage", e.getMessage());
+			request.setAttribute("errorMessageList", e.getMessageList());
 			// 遷移先ページ
 			page = "V204_02CustomerChangeResultView.jsp";
 		} catch (SystemException e) {

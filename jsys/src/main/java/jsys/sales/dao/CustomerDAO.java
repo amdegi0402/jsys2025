@@ -16,7 +16,12 @@ public class CustomerDAO {
 		this.con = con;
 	}
 
-	// 1件検索
+	/**
+	 * 1件検索 あいまい検索 名前検索
+	 * @param custValue
+	 * @return Customer
+	 * @throws SQLException
+	 */
 	public Customer findCustomer(String custValue) throws SQLException {
 		String sql
 				= "SELECT customer_code, customer_name, customer_telno, customer_postalcode, customer_address, discount_rate FROM customer WHERE (customer_code LIKE ? OR customer_name=?) AND delete_flag=false";
@@ -28,7 +33,7 @@ public class CustomerDAO {
 			// DBに渡すsqlを格納
 			stmt = con.prepareStatement(sql);
 			// 受け取ったcustCodeをセット
-			stmt.setString(1, "%" + custValue + "%");
+			stmt.setString(1, "%" + custValue);
 			stmt.setString(2, custValue);
 			// DB空の結果を受け取る
 			res = stmt.executeQuery();
@@ -52,6 +57,10 @@ public class CustomerDAO {
 	}
 
 	// 全件検索
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Customer> findAllCustomer() throws SQLException {
 		String sql
 				= "SELECT customer_code, customer_name, customer_telno, customer_postalcode, customer_address, discount_rate FROM customer WHERE delete_flag=false";
