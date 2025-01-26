@@ -6,9 +6,16 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!-- 先に jQuery を読み込む -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- ▼ 次に DataTables を読み込む -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 <title>得意先一覧画面</title>
 </head>
-<body>
+<body onload="toggleTextBox();">
 	<!-- 見出し -->
 	<div style="text-align: center">
 		<h2>得意先一覧</h2>
@@ -20,47 +27,90 @@
 				style="width: 200px">メニュー画面へ戻る</button>
 		</div>
 	</form>
+	
 	<!-- フォーム -->
 	<form method="post" action="./jsysF">
-		<table border="1" style="margin: 0 auto">
-			<tr>
-				<th width="100">得意先コード</th>
-				<th width="200">得意先名</th>
-				<th width="100">電話番号</th>
-				<th width="100">郵便番号</th>
-				<th width="300">住所</th>
-				<th width="80">割引率</th>
-			</tr>
-			<c:forEach var="customer" items="${customerList}" varStatus="status">
-				<tr>
-					<input type="hidden" name="custCode" value="${customer.custCode}">
-					<td><c:out value="${customer.custCode}" /></td>
-					<td><c:out value="${customer.custName}" /></td>
-					<td><c:out value="${customer.telNo}" /></td>
-					<td><c:out value="${customer.postalCode}" /></td>
-					<td><c:out value="${customer.address}" /></td>
-					<td><c:out value="${customer.discountRate}" /> %</td>
-					<td>
-						<button type="submit" class="button edit" name="buttonId"
-							value="V204_02">✎</button>
-					</td>
-					<td>
 
-						<button type="submit" class="button edit" name="buttonId"
-							value="V203_02">×</button>
-					</td>
+		<table id="myTable" border="1" style="margin: 0 auto;">
+
+			<!-- ここを thead として定義 -->
+			<thead>
+				<tr>
+					<!-- ID列（ソート用アイコン ▲▼）-->
+					<th width="100">得意先コード <a href="#"
+						onclick="sortData('id','asc')">▲</a> <a href="#"
+						onclick="sortData('id','desc')">▼</a>
+					</th>
+					<th width="200">得意先名 <a href="#"
+						onclick="sortData('name','asc')">▲</a> <a href="#"
+						onclick="sortData('name','desc')">▼</a>
+					</th>
+					<th width="100">電話番号 <a href="#"
+						onclick="sortData('tel','asc')">▲</a> <a href="#"
+						onclick="sortData('tel','desc')">▼</a>
+					</th>
+					<th width="100">郵便番号 <a href="#"
+						onclick="sortData('postal','asc')">▲</a> <a href="#"
+						onclick="sortData('postal','desc')">▼</a>
+					</th>
+					<th width="300">住所 <a href="#"
+						onclick="sortData('address','asc')">▲</a> <a href="#"
+						onclick="sortData('address','desc')">▼</a>
+					</th>
+					<th width="80">割引率 <a href="#"
+						onclick="sortData('discount','asc')">▲</a> <a href="#"
+						onclick="sortData('discount','desc')">▼</a>
+					</th>
 				</tr>
-			</c:forEach>
+			</thead>
+
+			<!-- データ行はこちらに -->
+			<tbody>
+				<c:forEach var="customer" items="${customerList}">
+					<tr>
+						<td><c:out value="${customer.custCode}" /></td>
+						<td><c:out value="${customer.custName}" /></td>
+						<td><c:out value="${customer.telNo}" /></td>
+						<td><c:out value="${customer.postalCode}" /></td>
+						<td><c:out value="${customer.address}" /></td>
+						<td><c:out value="${customer.discountRate}" />%</td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
-	</form>
-	<!-- エラーメッセージ -->
-	<div style="text-align: center; color: red; font-weight: bold;">
-		<%-- エラーメッセージがある場合、出力 --%>
-		<c:out value="${requestScope.errorMessage}" />
-		<c:forEach var="message" items="${requestScope.errorMessageList}">
-			<c:out value="${message}" />
-			<br>
-		</c:forEach>
-	</div>
+
+		<script>
+			// DataTables 初期化部分
+			let dataTable;
+			$(document).ready(function() {
+				dataTable = $('#myTable').DataTable({
+					paging : false,//テーブル内のデータを分けて表示しない
+					searching : false,//検索ボックスは利用しない
+					info : false,//データの情報は表示しない
+					order : [], // デフォルトソートを無効化
+					columnDefs : [ {//テーブル内のソートについてのルールを定義
+						targets : '_all',
+						orderable : true
+					} ]
+				});
+			});
+			// ソート用関数
+			function sortData(columnName, direction) {
+				//テーブル列の位置を管理
+				let colIndex = {
+					'id' : 0,
+					'name' : 1,
+					'tel' : 2,
+					'postal' : 3,
+					'address' : 4,
+					'discount' : 5
+				}[columnName];
+
+				//「存在しない列名ではない」場合にのみ実行する
+				if (colIndex !== undefined) {
+					dataTable.order([ colIndex, direction ]).draw();
+				}
+			}
+		</script>
 </body>
 </html>

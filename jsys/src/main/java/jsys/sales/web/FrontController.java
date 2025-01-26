@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
 		String buttonId = req.getParameter("buttonId");
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V100_01";
+			buttonId = "V205_01";
 		}
 
 		// 遷移先ページ
