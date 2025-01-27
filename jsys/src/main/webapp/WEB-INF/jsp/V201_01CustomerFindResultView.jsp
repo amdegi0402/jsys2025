@@ -61,6 +61,7 @@
 			<button type="submit" name="buttonId" value="V201_01">前画面へ戻る</button>
 		</div>
 	</form>
+	
 	<!-- エラーメッセージ -->
 	<div style="text-align: center; color: red; font-weight: bold;">
 		<%-- エラーメッセージがある場合、出力 --%>

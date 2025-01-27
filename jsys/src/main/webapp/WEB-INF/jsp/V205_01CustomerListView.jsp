@@ -15,7 +15,7 @@
 
 <title>得意先一覧画面</title>
 </head>
-<body onload="toggleTextBox();">
+<body>
 	<!-- 見出し -->
 	<div style="text-align: center">
 		<h2>得意先一覧</h2>
@@ -27,6 +27,9 @@
 				style="width: 200px">メニュー画面へ戻る</button>
 		</div>
 	</form>
+	<!-- ダウンロードボタン -->
+	<button onclick="downloadCsv()">ダウンロード</button>
+	
 	
 	<!-- フォーム -->
 	<form method="post" action="./jsysF">
@@ -111,6 +114,32 @@
 					dataTable.order([ colIndex, direction ]).draw();
 				}
 			}
+
+			//csvダウンロード関数
+			function downloadCsv(){
+				//テーブルデータを取得
+				const table = document.getElementById('myTable');
+
+
+				//テーブルの各行をループしてcsvに変換
+				let csvData = '\ufeff得意先コード,得意先名,電話番号,郵便番号,住所,割引率\n';
+				//let csvData = '\uFEFF得意先コード,得意先名,電話番号,郵便番号,住所,割引率\n';
+				//ヘッダー行をスキップして開始
+				for(let i = 1; i < table.rows.length; i++){
+					let rowData = [];
+					for(let cell of table.rows[i].cells){
+						rowData.push(cell.textContent);
+					}
+					csvData += rowData.join(',') + '\n';
+				}
+						
+				//csvダウンロードリンクを生成
+				const link = document.createElement("a");//linkを作成
+				link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
+				link.download = 'table_data.csv'; //ダウンロードファイル名
+				link.click();//ボタンクリック
+			}
+			
 		</script>
 </body>
 </html>
