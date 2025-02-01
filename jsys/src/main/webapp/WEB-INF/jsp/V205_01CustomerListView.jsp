@@ -29,8 +29,8 @@
 	</form>
 	<!-- ダウンロードボタン -->
 	<button onclick="downloadCsv()">ダウンロード</button>
-	
-	
+
+
 	<!-- フォーム -->
 	<form method="post" action="./jsysF">
 
@@ -64,6 +64,8 @@
 						onclick="sortData('discount','asc')">▲</a> <a href="#"
 						onclick="sortData('discount','desc')">▼</a>
 					</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 
@@ -77,6 +79,20 @@
 						<td><c:out value="${customer.postalCode}" /></td>
 						<td><c:out value="${customer.address}" /></td>
 						<td><c:out value="${customer.discountRate}" />%</td>
+						<td>
+							<form method="post" action="./jsysF">
+								<input type="hidden" name="custCode" value="${customer.custCode}"> 
+								<input type="hidden" name="buttonId" value="V204_02">
+								<button type="submit">✎</button>
+							</form>
+						</td>
+						<td>
+							<form method="post" action="./jsysF">
+								<input type="hidden" name="custCode" value="${customer.custCode}"> 
+								<input type="hidden" name="buttonId" value="V203_02">
+								<button type="submit">×</button>
+							</form>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

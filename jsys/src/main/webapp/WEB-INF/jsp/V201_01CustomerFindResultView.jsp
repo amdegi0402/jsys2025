@@ -54,6 +54,17 @@
 				<td><c:out
 						value="${requestScope.customer.discountRate}" /> %</td>
 			</tr>
+			<tr>
+			<td>地図</td>
+			<td>
+                <iframe 
+                    width="300" 
+                    height="200" 
+                    frameborder="0" 
+                    src="https://maps.google.com/maps?q=${requestScope.customer.address}&output=embed&t=m">
+                </iframe>
+            </td>
+            </tr>
 		</table>
 		</c:if>
 		<br>

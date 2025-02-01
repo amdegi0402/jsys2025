@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @WebServlet(urlPatterns = { "/jsysF" })
 public class FrontController extends HttpServlet {
 	/**
@@ -20,7 +19,7 @@ public class FrontController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//super.doPost(req, resp);
+		// super.doPost(req, resp);
 
 		// page path
 		String path = "/WEB-INF/jsp/";
@@ -28,9 +27,10 @@ public class FrontController extends HttpServlet {
 		ActionIF action = null;
 		// buttonId取得
 		String buttonId = req.getParameter("buttonId");
+		System.out.println("buttonId=" + buttonId);
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V205_01";
+			buttonId = "V301_00";
 		}
 
 		// 遷移先ページ
@@ -81,6 +81,13 @@ public class FrontController extends HttpServlet {
 				break;
 			case "V204_03":// 得意先更新（結果）
 				action = new CustomerChangeExecuteAction();
+				page = action.execute(req);
+				break;
+			case "V301_00":// 得意先別集計画面
+				page = "V301_01MonthlyOrderTotalView.jsp";
+				break;
+			case "V301_01":// 得意先別集計画面（結果）
+				action = new MonthlyOrderTotalAction();
 				page = action.execute(req);
 				break;
 		}
