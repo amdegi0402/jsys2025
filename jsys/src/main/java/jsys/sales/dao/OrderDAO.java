@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import jsys.sales.entity.Employee;
 import jsys.sales.entity.OrderTotalByCustomer;
+import jsys.sales.entity.OrderTotalByItem;
 
 public class OrderDAO {
 	private Connection con = null;
@@ -47,6 +47,40 @@ public class OrderDAO {
 				stmt.close();
 		}
 		return totalByCustomerList;
+
+	}
+
+	public ArrayList<OrderTotalByItem> CreateOrderTotalListByItem(String custCode) throws SQLException {
+		String sql
+				= "SELECT D.item_code, I.item_name, D.order_num, I.price, D.order_price FROM orders O INNER JOIN order_details D ON O.order_no=D.order_no INNER JOIN item I ON D.item_code=I.item_code WHERE O.customer_code=?";
+		ArrayList<OrderTotalByItem> totalByItemList = new ArrayList<>();
+		OrderTotalByItem totalByItem = null;
+		PreparedStatement stmt = null;
+		ResultSet res = null;
+
+		try {
+			// DBに渡すsqlを格納
+			stmt = con.prepareStatement(sql);
+			// 受け取ったcustCodeをセット
+			stmt.setString(1, custCode);
+			// DB空の結果を受け取る
+			res = stmt.executeQuery();
+			// 結果をエンティティに格納
+			while(res.next()) {
+				totalByItem = new OrderTotalByItem(res.getString("item_code"),
+						res.getString("item_name"),
+						res.getInt("order_num"),
+						res.getInt("price"),
+						res.getInt("order_price"));
+				totalByItemList.add(totalByItem);
+			}
+		} finally {
+			if (res != null)
+				res.close();
+			if (stmt != null)
+				stmt.close();
+		}
+		return totalByItemList;
 
 	}
 

@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 import jsys.sales.entity.Customer;
 
+/**
+ *
+ * @author FLM
+ * @version 1.0.0
+ */
 public class CustomerDAO {
 	private Connection con = null;
 
@@ -193,5 +198,40 @@ public class CustomerDAO {
 				stmt.close();
 		}
 		return result;
+	}
+
+
+
+	public Customer findIgnoreDeleteCustomer(String custCode) throws SQLException {
+		String sql
+				= "SELECT customer_code, customer_name, customer_telno, customer_postalcode, customer_address, discount_rate FROM customer WHERE customer_code=?";
+		Customer customer = null;
+		PreparedStatement stmt = null;
+		ResultSet res = null;
+
+		try {
+			// DBに渡すsqlを格納
+			stmt = con.prepareStatement(sql);
+			// 受け取ったcustCodeをセット
+			stmt.setString(1, custCode);
+			// DB空の結果を受け取る
+			res = stmt.executeQuery();
+			// 結果をエンティティに格納
+			if (res.next()) {
+				customer = new Customer(res.getString("customer_code"),
+						res.getString("customer_name"),
+						res.getString("customer_telno"),
+						res.getString("customer_postalcode"),
+						res.getString("customer_address"),
+						res.getInt("discount_rate"));
+			}
+		} finally {
+			if (res != null)
+				res.close();
+			if (stmt != null)
+				stmt.close();
+		}
+		return customer;
+
 	}
 }

@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
 		System.out.println("buttonId=" + buttonId);
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V301_00";
+			buttonId = "V303_00";
 		}
 
 		// 遷移先ページ
@@ -83,13 +83,29 @@ public class FrontController extends HttpServlet {
 				action = new CustomerChangeExecuteAction();
 				page = action.execute(req);
 				break;
-			case "V301_00":// 得意先別集計画面
+			case "V301_00":// 得意先別月別集計画面
 				page = "V301_01MonthlyOrderTotalView.jsp";
 				break;
-			case "V301_01":// 得意先別集計画面（結果）
+			case "V301_01":// 得意先別月別集計画面（結果）
 				action = new MonthlyOrderTotalAction();
 				page = action.execute(req);
 				break;
+			case "V302_00":// 得意先別年別集計画面
+				page = "V302_01YearlyOrderTotalView.jsp";
+				break;
+			case "V302_01":// 得意先別年別集計画面（結果）
+				action = new YearlyOrderTotalAction();
+				page = action.execute(req);
+				break;
+			case "V303_00":// 商品受注別年別集計画面
+				page = "V303_01OrderTotalByItemView.jsp";
+				break;
+			case "V303_01":// 商品受注別年別集計画面（結果）
+				action = new OrderTotalByItemAction();
+				page = action.execute(req);
+				break;
+
+
 		}
 
 		// 結果画面に転送
