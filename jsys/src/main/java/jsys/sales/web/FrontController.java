@@ -27,10 +27,10 @@ public class FrontController extends HttpServlet {
 		ActionIF action = null;
 		// buttonId取得
 		String buttonId = req.getParameter("buttonId");
-		System.out.println("buttonId=" + buttonId);
+		System.out.println("(FC)buttonId=" + buttonId);
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V303_00";
+			buttonId = "V202_01";
 		}
 
 		// 遷移先ページ
@@ -102,6 +102,13 @@ public class FrontController extends HttpServlet {
 				break;
 			case "V303_01":// 商品受注別年別集計画面（結果）
 				action = new OrderTotalByItemAction();
+				page = action.execute(req);
+				break;
+			case "V202_01":// 商品受注別年別集計画面
+				page = "V202_01CustomerRegistView.jsp";
+				break;
+			case "V202_02":// 商品受注別年別集計画面（結果）
+				action = new CustomerRegistAction();
 				page = action.execute(req);
 				break;
 

@@ -53,6 +53,12 @@ public class CustomerChangeLogic {
 
 			// 結果がfalseであれば業務エラーを発生させる
 			if (result == false) {
+				try {
+					con.rollback();
+					con.setAutoCommit(true);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				throw new BusinessException("得意先情報の更新に失敗しました。");
 			}
 			con.commit();

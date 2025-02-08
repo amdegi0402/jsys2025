@@ -200,6 +200,32 @@ public class CustomerDAO {
 		return result;
 	}
 
+	//登録
+		public Customer insertCustomer(Customer customer) throws SQLException {
+			String sql
+					= "INSERT INTO customer(customer_code, customer_name, customer_telno, customer_postalcode, customer_address, discount_rate) VALUES(?, ?, ?, ?, ?, ?)";
+			PreparedStatement stmt = null;
+			boolean result = false;
+			try {
+				// DBへ渡すSQLを格納
+				stmt = con.prepareStatement(sql);
+				// 引数で受け取ったオブジェクトからコードをSQL文に挿入
+				stmt.setString(1, customer.getCustCode());
+				stmt.setString(2, customer.getCustName());
+				stmt.setString(3, customer.getTelNo());
+				stmt.setString(4, customer.getPostalCode());
+				stmt.setString(5, customer.getAddress());
+				stmt.setInt(6, customer.getDiscountRate());
+				// DBから結果を受け取る
+				stmt.executeUpdate();
+
+			} finally {
+				if (stmt != null)
+					stmt.close();
+			}
+			return customer;
+		}
+
 
 
 	public Customer findIgnoreDeleteCustomer(String custCode) throws SQLException {

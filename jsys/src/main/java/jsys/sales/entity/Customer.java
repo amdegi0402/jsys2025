@@ -22,8 +22,16 @@ public class Customer implements Serializable{
 	 */
 	public Customer(String custCode, String custName, String telNo,
 			String postalCode, String address, int discountRate) {
-		super();
 		this.custCode = custCode;
+		this.custName = custName;
+		this.telNo = telNo;
+		this.postalCode = postalCode;
+		this.address = address;
+		this.discountRate = discountRate;
+	}
+
+	public Customer(String custName, String telNo,
+			String postalCode, String address, int discountRate) {
 		this.custName = custName;
 		this.telNo = telNo;
 		this.postalCode = postalCode;
