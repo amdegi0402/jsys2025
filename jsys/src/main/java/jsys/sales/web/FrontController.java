@@ -19,8 +19,6 @@ public class FrontController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// super.doPost(req, resp);
-
 		// page path
 		String path = "/WEB-INF/jsp/";
 		String page = null;
@@ -30,7 +28,7 @@ public class FrontController extends HttpServlet {
 		System.out.println("(FC)buttonId=" + buttonId);
 		// 初回アクセス処理
 		if (buttonId == null || buttonId.equals("")) {
-			buttonId = "V202_01";
+			buttonId = "V100_01";
 		}
 
 		// 遷移先ページ
@@ -40,6 +38,10 @@ public class FrontController extends HttpServlet {
 				break;
 			case "V101_01":// ログイン
 				action = new LoginAction();
+				page = action.execute(req);
+				break;
+			case "V101_02":// ログインMFA
+				action = new LoginMfaAction();
 				page = action.execute(req);
 				break;
 			case "V201_01":// 得意先検索初期画面

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import jsys.common.BusinessException;
 import jsys.common.SystemException;
 import jsys.sales.entity.Employee;
+import jsys.sales.logic.AWSSEService;
 import jsys.sales.logic.LoginLogic;
 
 public class LoginAction implements ActionIF {
@@ -16,7 +17,7 @@ public class LoginAction implements ActionIF {
 	 */
 	@Override
 	public String execute(HttpServletRequest request) {
-		String page = "V101_01MainMenu.jsp";
+		String page = "V100_03LoginMailAuth.jsp";
 		Employee employee = null;
 		ArrayList<String> errorMessageList = new ArrayList<>();
 		int count = 0;
@@ -33,11 +34,10 @@ public class LoginAction implements ActionIF {
 				errorMessageList.add("ログイン制限中");
 				throw new BusinessException(errorMessageList);
 			}
-			if (System.currentTimeMillis() > lockTime) {
+			if (lockTime != null && System.currentTimeMillis() > lockTime) {
 			    // ロック時間経過済みなのでロック解除
 			    session.removeAttribute("lockTime");
 			    session.removeAttribute("loginAttempts");
-			    // または loginAttempts.clear();
 			}
 
 			// 初回アクセス時は新規リストを作成
@@ -62,7 +62,23 @@ public class LoginAction implements ActionIF {
 			LoginLogic logic = new LoginLogic();
 			employee = logic.login(employeeNo, password);
 			loginAttempts.add(true);
-			request.setAttribute("employee", employee);
+			//loginAttemptsリストへ」最後に追加した要素を取得
+			boolean lastElement = loginAttempts.get(loginAttempts.size() - 1);
+			//もし最後に追加した要素がtrueであればAWS_SES処理へ進む
+			if(lastElement) {
+				AWSSEService otpService = new AWSSEService();
+				String userEmail = "amdegient@gmail.com"; //ユーザのメールアドレスを取得（検証用なのでここで指定）
+				String otp = otpService.generateOTP();//認証用の6桁のコードを生成
+
+				//セッションにOTP保存
+				session.setAttribute("otp", otp);
+				session.setAttribute("otpTimestamp", System.currentTimeMillis());//現在の時刻をセッションに保存
+
+				//メール送信(6桁のコードを送信）
+				otpService.sendOTP(userEmail,  otp);
+			}
+			//ログインは確定していないが仮のログイン情報をセッションに格納
+			request.setAttribute("tempEmployee", employee);
 		} catch (BusinessException e) {
 			// ログイン失敗時
 			loginAttempts.add(false);
